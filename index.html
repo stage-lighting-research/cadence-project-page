@@ -1,0 +1,486 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0a0714">
+
+  <title>Cadence — Music-Responsive Stage Lighting</title>
+  <meta
+    name="description"
+    content="Cadence is a framework for music-responsive stage lighting in generated concert video. NeurIPS 2026 Creative AI Track."
+  >
+
+  <!-- Open Graph / social sharing -->
+  <meta property="og:title" content="Cadence — Music-Responsive Stage Lighting">
+  <meta
+    property="og:description"
+    content="A framework for music-responsive stage lighting in generated concert video."
+  >
+  <meta property="og:image" content="static/teaser.png">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" type="image/png" href="static/favicon.png">
+  <link rel="stylesheet" href="static/style.css?v=5">
+</head>
+<body>
+
+  <!-- ═════ HERO ═════ -->
+  <header class="hero">
+    <div class="hero-glow" aria-hidden="true"></div>
+
+    <div class="hero-inner">
+      <h1 class="hero-title">Cadence</h1>
+
+      <p class="hero-tagline">
+        A framework for music-responsive stage lighting<br>
+        in generated concert video.
+      </p>
+
+      <p class="hero-authors">NeurIPS 2026 Creative AI Track</p>
+
+      <nav class="hero-links" aria-label="Quick links">
+        <!-- Replace # with the public paper URL when it is available. -->
+        <a
+          href="#"
+          class="btn"
+          data-role="paper"
+          aria-disabled="true"
+          title="Paper link coming soon"
+        >
+          📄 Paper
+        </a>
+        <a href="#examples" class="btn btn-accent">▶ Watch examples</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="site-main">
+
+    <!-- ═════ TEASER FIGURE ═════ -->
+    <section class="section" id="method-figure" aria-labelledby="method-figure-title">
+      <h2 id="method-figure-title" class="visually-hidden">Cadence framework overview</h2>
+
+      <figure class="teaser-figure">
+        <img
+          src="static/teaser.png"
+          alt="Cadence framework. A music-relative aligner defines what may change, temporal control determines when and how strongly it acts, and spatial control determines where it may affect the scene."
+          loading="eager"
+          decoding="async"
+        >
+        <figcaption>
+          <strong>Cadence in one figure.</strong>
+          The music-relative aligner defines <em>what</em> may change,
+          temporal control determines <em>when</em> and how strongly it acts,
+          and spatial control determines <em>where</em> it may affect the scene.
+        </figcaption>
+      </figure>
+    </section>
+
+    <!-- ═════ ABSTRACT ═════ -->
+    <section class="section" id="abstract" aria-labelledby="abstract-title">
+      <h2 id="abstract-title">Abstract</h2>
+
+      <p class="lede abstract-copy">
+        Stage lighting brings music to life, turning sound into an immersive
+        visual experience. Yet designing responsive lighting cues demands
+        hours of tedious manual work from lighting designers. Existing
+        audio-to-video models capture human movement or overall visual mood,
+        but overlook the art of dynamic lighting. To bridge this gap, we
+        first introduce <strong>LuSyClip</strong>, a concert lighting video
+        benchmark for training and evaluating music-responsive stage lighting
+        generation. We then propose <strong>Cadence</strong>, a framework
+        that generates concert video whose stage lighting follows the music.
+        Cadence builds on a state-of-the-art video backbone and adds three
+        trainable modules: (i) a music-relative aligner that contrasts the
+        response to the music with the response to silence, deciding
+        <em>what</em> should change; (ii) a temporal control that decides
+        <em>when</em> the change acts; and (iii) a spatial control that
+        decides <em>where</em> it may act. On 1,032 held-out clips, Cadence
+        clearly outperforms unadapted video baselines, reducing distributional
+        error by <strong>14.4&thinsp;%</strong> and improving music-lighting
+        synchronisation by <strong>31.8&thinsp;%</strong>. Together, these
+        contributions give lighting designers a responsive and controllable
+        tool for stage lighting design.
+      </p>
+    </section>
+
+    <!-- ═════ EXAMPLES ═════ -->
+    <section class="section" id="examples" aria-labelledby="examples-title">
+      <h2 id="examples-title">Head-to-head comparisons</h2>
+
+      <p class="lede section-intro">
+        Same reference image. Same lighting description. Same audio track.
+        Only the model differs. <strong>Press play on the audio</strong> —
+        all three videos start together, in sync with the music.
+      </p>
+
+      <!-- ─── EXAMPLE 1 ─── -->
+      <article class="example" data-example="1">
+        <header class="example-meta">
+          <img
+            class="ref-img"
+            src="assets/examples/ex1/reference.jpeg"
+            alt="Reference stage frame for example 1"
+            loading="lazy"
+            decoding="async"
+          >
+
+          <div class="example-desc">
+            <div class="pill">Lighting description</div>
+            <p class="prompt" data-prompt-src="assets/examples/ex1/prompt.txt">
+              Loading prompt…
+            </p>
+            <audio
+              class="ref-audio"
+              controls
+              preload="metadata"
+              src="assets/examples/ex1/audio.wav"
+            >
+              Your browser does not support the audio element.
+            </audio>
+          </div>
+        </header>
+
+        <div class="video-grid">
+          <figure class="video-card">
+            <video
+              muted
+              loop
+              playsinline
+              preload="metadata"
+              src="assets/examples/ex1/wan.mp4"
+              poster="assets/examples/ex1/reference.jpeg"
+            ></video>
+            <figcaption>
+              Wan2.2-S2V <span class="cap-tag">baseline</span>
+            </figcaption>
+          </figure>
+
+          <figure class="video-card">
+            <video
+              muted
+              loop
+              playsinline
+              preload="metadata"
+              src="assets/examples/ex1/wan_lora.mp4"
+              poster="assets/examples/ex1/reference.jpeg"
+            ></video>
+            <figcaption>
+              Wan2.2-S2V + LoRA <span class="cap-tag">fine-tuned</span>
+            </figcaption>
+          </figure>
+
+          <figure class="video-card is-ours">
+            <video
+              muted
+              loop
+              playsinline
+              preload="metadata"
+              src="assets/examples/ex1/cadence.mp4"
+              poster="assets/examples/ex1/reference.jpeg"
+            ></video>
+            <figcaption>
+              Cadence <span class="cap-tag">ours</span>
+            </figcaption>
+          </figure>
+        </div>
+      </article>
+
+      <!-- ─── EXAMPLE 2 ─── -->
+      <article class="example" data-example="2">
+        <header class="example-meta">
+          <img
+            class="ref-img"
+            src="assets/examples/ex2/reference.jpeg"
+            alt="Reference stage frame for example 2"
+            loading="lazy"
+            decoding="async"
+          >
+
+          <div class="example-desc">
+            <div class="pill">Lighting description</div>
+            <p class="prompt" data-prompt-src="assets/examples/ex2/prompt.txt">
+              Loading prompt…
+            </p>
+            <audio
+              class="ref-audio"
+              controls
+              preload="metadata"
+              src="assets/examples/ex2/audio.wav"
+            ></audio>
+          </div>
+        </header>
+
+        <div class="video-grid">
+          <figure class="video-card">
+            <video
+              muted
+              loop
+              playsinline
+              preload="metadata"
+              src="assets/examples/ex2/wan.mp4"
+              poster="assets/examples/ex2/reference.jpeg"
+            ></video>
+            <figcaption>
+              Wan2.2-S2V <span class="cap-tag">baseline</span>
+            </figcaption>
+          </figure>
+
+          <figure class="video-card">
+            <video
+              muted
+              loop
+              playsinline
+              preload="metadata"
+              src="assets/examples/ex2/wan_lora.mp4"
+              poster="assets/examples/ex2/reference.jpeg"
+            ></video>
+            <figcaption>
+              Wan2.2-S2V + LoRA <span class="cap-tag">fine-tuned</span>
+            </figcaption>
+          </figure>
+
+          <figure class="video-card is-ours">
+            <video
+              muted
+              loop
+              playsinline
+              preload="metadata"
+              src="assets/examples/ex2/cadence.mp4"
+              poster="assets/examples/ex2/reference.jpeg"
+            ></video>
+            <figcaption>
+              Cadence <span class="cap-tag">ours</span>
+            </figcaption>
+          </figure>
+        </div>
+      </article>
+
+      <!-- ─── EXAMPLE 3 ─── -->
+      <article class="example" data-example="3">
+        <header class="example-meta">
+          <img
+            class="ref-img"
+            src="assets/examples/ex3/reference.jpeg"
+            alt="Reference stage frame for example 3"
+            loading="lazy"
+            decoding="async"
+          >
+
+          <div class="example-desc">
+            <div class="pill">Lighting description</div>
+            <p class="prompt" data-prompt-src="assets/examples/ex3/prompt.txt">
+              Loading prompt…
+            </p>
+            <audio
+              class="ref-audio"
+              controls
+              preload="metadata"
+              src="assets/examples/ex3/audio.wav"
+            ></audio>
+          </div>
+        </header>
+
+        <div class="video-grid">
+          <figure class="video-card">
+            <video
+              muted
+              loop
+              playsinline
+              preload="metadata"
+              src="assets/examples/ex3/wan.mp4"
+              poster="assets/examples/ex3/reference.jpeg"
+            ></video>
+            <figcaption>
+              Wan2.2-S2V <span class="cap-tag">baseline</span>
+            </figcaption>
+          </figure>
+
+          <figure class="video-card">
+            <video
+              muted
+              loop
+              playsinline
+              preload="metadata"
+              src="assets/examples/ex3/wan_lora.mp4"
+              poster="assets/examples/ex3/reference.jpeg"
+            ></video>
+            <figcaption>
+              Wan2.2-S2V + LoRA <span class="cap-tag">fine-tuned</span>
+            </figcaption>
+          </figure>
+
+          <figure class="video-card is-ours">
+            <video
+              muted
+              loop
+              playsinline
+              preload="metadata"
+              src="assets/examples/ex3/cadence.mp4"
+              poster="assets/examples/ex3/reference.jpeg"
+            ></video>
+            <figcaption>
+              Cadence <span class="cap-tag">ours</span>
+            </figcaption>
+          </figure>
+        </div>
+      </article>
+
+      <!-- ─── EXAMPLE 4 ─── -->
+      <article class="example" data-example="4">
+        <header class="example-meta">
+          <img
+            class="ref-img"
+            src="assets/examples/ex4/reference.jpeg"
+            alt="Reference stage frame for example 4"
+            loading="lazy"
+            decoding="async"
+          >
+
+          <div class="example-desc">
+            <div class="pill">Lighting description</div>
+            <p class="prompt" data-prompt-src="assets/examples/ex4/prompt.txt">
+              Loading prompt…
+            </p>
+            <audio
+              class="ref-audio"
+              controls
+              preload="metadata"
+              src="assets/examples/ex4/audio.wav"
+            ></audio>
+          </div>
+        </header>
+
+        <div class="video-grid">
+          <figure class="video-card">
+            <video
+              muted
+              loop
+              playsinline
+              preload="metadata"
+              src="assets/examples/ex4/wan.mp4"
+              poster="assets/examples/ex4/reference.jpeg"
+            ></video>
+            <figcaption>
+              Wan2.2-S2V <span class="cap-tag">baseline</span>
+            </figcaption>
+          </figure>
+
+          <figure class="video-card">
+            <video
+              muted
+              loop
+              playsinline
+              preload="metadata"
+              src="assets/examples/ex4/wan_lora.mp4"
+              poster="assets/examples/ex4/reference.jpeg"
+            ></video>
+            <figcaption>
+              Wan2.2-S2V + LoRA <span class="cap-tag">fine-tuned</span>
+            </figcaption>
+          </figure>
+
+          <figure class="video-card is-ours">
+            <video
+              muted
+              loop
+              playsinline
+              preload="metadata"
+              src="assets/examples/ex4/cadence.mp4"
+              poster="assets/examples/ex4/reference.jpeg"
+            ></video>
+            <figcaption>
+              Cadence <span class="cap-tag">ours</span>
+            </figcaption>
+          </figure>
+        </div>
+      </article>
+
+      <!-- ─── EXAMPLE 5 ─── -->
+      <article class="example" data-example="5">
+        <header class="example-meta">
+          <img
+            class="ref-img"
+            src="assets/examples/ex5/reference.jpeg"
+            alt="Reference stage frame for example 5"
+            loading="lazy"
+            decoding="async"
+          >
+
+          <div class="example-desc">
+            <div class="pill">Lighting description</div>
+            <p class="prompt" data-prompt-src="assets/examples/ex5/prompt.txt">
+              Loading prompt…
+            </p>
+            <audio
+              class="ref-audio"
+              controls
+              preload="metadata"
+              src="assets/examples/ex5/audio.wav"
+            ></audio>
+          </div>
+        </header>
+
+        <div class="video-grid">
+          <figure class="video-card">
+            <video
+              muted
+              loop
+              playsinline
+              preload="metadata"
+              src="assets/examples/ex5/wan.mp4"
+              poster="assets/examples/ex5/reference.jpeg"
+            ></video>
+            <figcaption>
+              Wan2.2-S2V <span class="cap-tag">baseline</span>
+            </figcaption>
+          </figure>
+
+          <figure class="video-card">
+            <video
+              muted
+              loop
+              playsinline
+              preload="metadata"
+              src="assets/examples/ex5/wan_lora.mp4"
+              poster="assets/examples/ex5/reference.jpeg"
+            ></video>
+            <figcaption>
+              Wan2.2-S2V + LoRA <span class="cap-tag">fine-tuned</span>
+            </figcaption>
+          </figure>
+
+          <figure class="video-card is-ours">
+            <video
+              muted
+              loop
+              playsinline
+              preload="metadata"
+              src="assets/examples/ex5/cadence.mp4"
+              poster="assets/examples/ex5/reference.jpeg"
+            ></video>
+            <figcaption>
+              Cadence <span class="cap-tag">ours</span>
+            </figcaption>
+          </figure>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2026 · Cadence project page · NeurIPS 2026 Creative AI Track submission</p>
+  </footer>
+
+  <script src="static/main.js?v=5" defer></script>
+
+  <noscript>
+    <style>
+      .video-card video { pointer-events: none; }
+    </style>
+  </noscript>
+</body>
+</html>

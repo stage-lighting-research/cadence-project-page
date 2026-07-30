@@ -1,0 +1,11 @@
+# Editor / OS
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/
+
+# Temp encode outputs
+*.tmp.mp4
+*.tmp.mp3
+
