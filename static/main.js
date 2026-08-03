@@ -494,6 +494,131 @@
     });
   });
 
+	/* ------------------------------------------------------------------
+ * Architecture lightbox
+ * ------------------------------------------------------------------ */
+
+var architectureLightbox = document.getElementById(
+  'architecture-lightbox'
+);
+
+var architectureCloseButton = architectureLightbox
+  ? architectureLightbox.querySelector(
+      '.architecture-lightbox-close'
+    )
+  : null;
+
+var architectureStage = architectureLightbox
+  ? architectureLightbox.querySelector(
+      '.architecture-lightbox-stage'
+    )
+  : null;
+
+var architectureLightboxImage = architectureLightbox
+  ? architectureLightbox.querySelector(
+      '.architecture-lightbox-image'
+    )
+  : null;
+
+var architectureLastFocus = null;
+
+function openArchitectureLightbox(event) {
+  if (!architectureLightbox) return;
+
+  event.preventDefault();
+
+  architectureLastFocus = event.currentTarget;
+
+  var source = event.currentTarget.getAttribute('href');
+
+  if (source && architectureLightboxImage) {
+    architectureLightboxImage.setAttribute(
+      'src',
+      source
+    );
+  }
+
+  architectureLightbox.hidden = false;
+
+  architectureLightbox.setAttribute(
+    'aria-hidden',
+    'false'
+  );
+
+  document.body.classList.add(
+    'is-lightbox-open'
+  );
+
+  if (architectureCloseButton) {
+    architectureCloseButton.focus();
+  }
+}
+
+function closeArchitectureLightbox() {
+  if (
+    !architectureLightbox ||
+    architectureLightbox.hidden
+  ) {
+    return;
+  }
+
+  architectureLightbox.hidden = true;
+
+  architectureLightbox.setAttribute(
+    'aria-hidden',
+    'true'
+  );
+
+  document.body.classList.remove(
+    'is-lightbox-open'
+  );
+
+  if (
+    architectureLastFocus &&
+    typeof architectureLastFocus.focus === 'function'
+  ) {
+    architectureLastFocus.focus();
+  }
+}
+
+all('[data-architecture-open]').forEach(
+  function (link) {
+    link.addEventListener(
+      'click',
+      openArchitectureLightbox
+    );
+  }
+);
+
+if (architectureCloseButton) {
+  architectureCloseButton.addEventListener(
+    'click',
+    closeArchitectureLightbox
+  );
+}
+
+if (architectureLightbox) {
+  architectureLightbox.addEventListener(
+    'click',
+    function (event) {
+      if (
+        event.target === architectureLightbox ||
+        event.target === architectureStage
+      ) {
+        closeArchitectureLightbox();
+      }
+    }
+  );
+}
+
+document.addEventListener(
+  'keydown',
+  function (event) {
+    if (event.key === 'Escape') {
+      closeArchitectureLightbox();
+    }
+  }
+);
   /* ------------------------------------------------------------------
    * Disabled placeholder links
    * ------------------------------------------------------------------ */

@@ -9,21 +9,28 @@
   <title>Cadence — Music-Responsive Stage Lighting</title>
   <meta
     name="description"
-    content="Cadence is a framework for music-responsive stage lighting in generated concert video. NeurIPS 2026 Creative AI Track."
+    content="Cadence is a framework for music-responsive stage lighting in generated concert video, together with the LuSyClip benchmark."
   >
 
   <!-- Open Graph / social sharing -->
   <meta property="og:title" content="Cadence — Music-Responsive Stage Lighting">
   <meta
     property="og:description"
-    content="A framework for music-responsive stage lighting in generated concert video."
+    content="Cadence and LuSyClip for music-responsive stage lighting generation in concert video."
   >
-  <meta property="og:image" content="static/teaser.png">
+  <meta
+    property="og:image"
+    content="https://stage-lighting-research.github.io/cadence-project-page/assets/architecture/cadence.png"
+  >
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary_large_image">
+  <meta
+    name="twitter:image"
+    content="https://stage-lighting-research.github.io/cadence-project-page/assets/architecture/cadence.png"
+  >
 
   <link rel="icon" type="image/png" href="static/favicon.png">
-  <link rel="stylesheet" href="static/style.css?v=5">
+  <link rel="stylesheet" href="static/style.css?v=6">
 </head>
 <body>
 
@@ -59,25 +66,80 @@
 
   <main class="site-main">
 
-    <!-- ═════ TEASER FIGURE ═════ -->
-    <section class="section" id="method-figure" aria-labelledby="method-figure-title">
-      <h2 id="method-figure-title" class="visually-hidden">Cadence framework overview</h2>
+    <!-- ═════ ARCHITECTURE FIGURE ═════ -->
+    <section
+      class="section section-architecture"
+      id="method-figure"
+      aria-labelledby="method-figure-title"
+    >
+      <h2 id="method-figure-title" class="visually-hidden">
+        Cadence framework overview
+      </h2>
 
-      <figure class="teaser-figure">
-        <img
-          src="static/teaser.png"
-          alt="Cadence framework. A music-relative aligner defines what may change, temporal control determines when and how strongly it acts, and spatial control determines where it may affect the scene."
-          loading="eager"
-          decoding="async"
+      <figure class="architecture-figure">
+        <a
+          class="architecture-viewer"
+          href="assets/architecture/cadence.png?v=2"
+          data-architecture-open
+          aria-label="Open the Cadence architecture diagram at full size"
         >
+          <img
+            class="architecture-image"
+            src="assets/architecture/cadence.png?v=2"
+            alt="Cadence architecture. Music, a reference image, and a lighting description condition the framework. A music-relative aligner defines what may change, temporal control determines when and how strongly it acts, and spatial control determines where it may affect the scene."
+            width="2589"
+            height="1460"
+            loading="eager"
+            fetchpriority="high"
+            decoding="async"
+          >
+          <span class="architecture-hint" aria-hidden="true">
+            Click to enlarge
+          </span>
+        </a>
+
         <figcaption>
           <strong>Cadence in one figure.</strong>
           The music-relative aligner defines <em>what</em> may change,
           temporal control determines <em>when</em> and how strongly it acts,
           and spatial control determines <em>where</em> it may affect the scene.
+          <a
+            href="assets/architecture/cadence.pdf"
+            target="_blank"
+            rel="noopener"
+          >Open the vector PDF.</a>
         </figcaption>
       </figure>
     </section>
+
+    <div
+      class="architecture-lightbox"
+      id="architecture-lightbox"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Cadence architecture diagram"
+      aria-hidden="true"
+      hidden
+    >
+      <button
+        class="architecture-lightbox-close"
+        type="button"
+        aria-label="Close architecture diagram"
+      >
+        &times;
+      </button>
+
+      <div class="architecture-lightbox-stage">
+        <img
+          class="architecture-lightbox-image"
+          src="assets/architecture/cadence.png?v=2"
+          alt=""
+          width="2589"
+          height="1460"
+          decoding="async"
+        >
+      </div>
+    </div>
 
     <!-- ═════ ABSTRACT ═════ -->
     <section class="section" id="abstract" aria-labelledby="abstract-title">
@@ -94,16 +156,16 @@
         generation. We then propose <strong>Cadence</strong>, a framework
         that generates concert video whose stage lighting follows the music.
         Cadence builds on a state-of-the-art video backbone and adds three
-        trainable modules: (i) a music-relative aligner that contrasts the
+        trainable components: (i) a music-relative aligner that contrasts the
         response to the music with the response to silence, deciding
         <em>what</em> should change; (ii) a temporal control that decides
         <em>when</em> the change acts; and (iii) a spatial control that
-        decides <em>where</em> it may act. On 1,032 held-out clips, Cadence
-        clearly outperforms unadapted video baselines, reducing distributional
-        error by <strong>13.7&thinsp;%</strong> and improving music-lighting
-        synchronisation by <strong>31.8&thinsp;%</strong>. Together, these
-        contributions give lighting designers a responsive and controllable
-        tool for stage lighting design.
+        decides <em>where</em> it may act. On 1,032 held-out clips, relative
+        to a fine-tuned baseline, Cadence reduces distributional distance by
+        <strong>28&thinsp;%</strong> and increases lighting activity by
+        <strong>44.2&thinsp;%</strong>, moving generated activity towards the
+        recorded level. Together, these contributions give lighting designers
+        a responsive and controllable tool for stage lighting design.
       </p>
     </section>
 
@@ -475,7 +537,7 @@
     <p>© 2026 · Cadence project page · NeurIPS 2026 Creative AI Track submission</p>
   </footer>
 
-  <script src="static/main.js?v=5" defer></script>
+  <script src="static/main.js?v=6" defer></script>
 
   <noscript>
     <style>

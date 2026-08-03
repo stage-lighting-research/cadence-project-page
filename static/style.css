@@ -346,29 +346,151 @@ video[role="button"]:focus-visible {
   text-align: center;
 }
 
-/* ══ TEASER FIGURE ══ */
-.teaser-figure {
-  width: min(100%, 1120px);
+/* ══ ARCHITECTURE FIGURE ══ */
+.section-architecture {
+  padding-top: clamp(1.4rem, 3vw, 2.4rem);
+  padding-bottom: clamp(1.8rem, 4vw, 3rem);
+}
+
+.architecture-figure {
+  width: min(100%, 940px);
   margin-inline: auto;
 }
 
-.teaser-figure img {
+.architecture-viewer {
+  position: relative;
+  display: block;
   width: 100%;
-  margin-inline: auto;
-  padding: 0.75rem;
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  background: #fff;
+  padding: clamp(0.4rem, 0.8vw, 0.65rem);
+  overflow: hidden;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-lg);
+  background: linear-gradient(145deg, #171222, #100c18);
+  box-shadow:
+    0 18px 50px rgba(0, 0, 0, 0.28),
+    0 1px 0 rgba(255, 255, 255, 0.04) inset;
+  cursor: zoom-in;
 }
 
-.teaser-figure figcaption {
-  width: min(100%, 900px);
-  margin: 1rem auto 0;
+.architecture-viewer:hover {
+  border-color: rgba(255, 42, 146, 0.58);
+}
+
+.architecture-image {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  max-height: min(62vh, 560px);
+  margin-inline: auto;
+  object-fit: contain;
+  border-radius: calc(var(--radius-lg) - 7px);
+
+  /* The diagram uses dark text. This neutral surface also makes a
+     transparent PNG readable without creating a page-wide white block. */
+  background-color: #f4f2ee;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08) inset;
+}
+
+.architecture-hint {
+  position: absolute;
+  right: 1rem;
+  bottom: 1rem;
+  padding: 0.36rem 0.62rem;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 999px;
+  background: rgba(10, 7, 20, 0.82);
+  color: #fff;
+  font-size: 0.76rem;
+  font-weight: 650;
+  letter-spacing: 0.01em;
+  pointer-events: none;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.architecture-figure figcaption {
+  width: min(100%, 780px);
+  margin: 0.85rem auto 0;
   color: var(--dim);
-  font-size: 0.94rem;
-  line-height: 1.6;
+  font-size: 0.9rem;
+  line-height: 1.55;
   text-align: center;
   text-wrap: pretty;
+}
+
+.architecture-figure figcaption a {
+  white-space: nowrap;
+}
+
+/* Full-size viewer. The on-page diagram stays compact; the visitor can
+   inspect details here without changing the layout of the paper page. */
+body.is-lightbox-open {
+  overflow: hidden;
+}
+
+.architecture-lightbox[hidden] {
+  display: none;
+}
+
+.architecture-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: grid;
+  place-items: center;
+  padding: clamp(1rem, 3vw, 2.5rem);
+  background: rgba(5, 3, 10, 0.94);
+  cursor: zoom-out;
+}
+
+.architecture-lightbox-stage {
+  display: grid;
+  place-items: center;
+  width: min(96vw, 1500px);
+  max-height: 92vh;
+  padding: clamp(0.4rem, 1vw, 0.8rem);
+  overflow: auto;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-lg);
+  background: #111;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.55);
+  cursor: default;
+}
+
+.architecture-lightbox-image {
+  display: block;
+  max-width: 100%;
+  max-height: calc(92vh - 2rem);
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border-radius: calc(var(--radius-lg) - 8px);
+  background-color: #f4f2ee;
+}
+
+.architecture-lightbox-close {
+  position: fixed;
+  top: max(0.85rem, env(safe-area-inset-top));
+  right: max(0.85rem, env(safe-area-inset-right));
+  z-index: 1001;
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 999px;
+  background: rgba(20, 16, 31, 0.92);
+  color: #fff;
+  cursor: pointer;
+  font-size: 1.75rem;
+  line-height: 1;
+}
+
+.architecture-lightbox-close:hover {
+  border-color: var(--accent);
+  background: var(--bg-panel);
 }
 
 /* ══ EXAMPLES ══ */
@@ -787,6 +909,39 @@ footer p {
   }
 }
 
+@media (max-width: 700px) {
+  .architecture-figure {
+    width: min(100%, 720px);
+  }
+
+  .architecture-viewer {
+    padding: 0.35rem;
+    border-radius: 14px;
+  }
+
+  .architecture-image {
+    width: 100%;
+    max-height: none;
+    border-radius: 10px;
+  }
+
+  .architecture-hint {
+    right: 0.7rem;
+    bottom: 0.7rem;
+    font-size: 0.7rem;
+  }
+
+  .architecture-lightbox {
+    padding: 0.75rem;
+  }
+
+  .architecture-lightbox-stage {
+    width: 100%;
+    padding: 0.35rem;
+    border-radius: 12px;
+  }
+}
+
 @media (max-width: 500px) {
   .example-meta {
     grid-template-columns: 1fr;
@@ -864,6 +1019,23 @@ footer p {
   .btn,
   .btn-copy {
     display: none;
+  }
+
+  .architecture-viewer {
+    padding: 0;
+    border: 0;
+    background: #fff;
+    box-shadow: none;
+  }
+
+  .architecture-image {
+    max-height: none;
+    background: #fff;
+  }
+
+  .architecture-hint,
+  .architecture-lightbox {
+    display: none !important;
   }
 
   .video-card video {
